@@ -7,33 +7,81 @@ To write a python program to implement multivariate linear regression and predic
 ## Algorithm:
 ### Step1
 <br>
+Import the required Python libraries such as NumPy, Matplotlib, and Scikit-learn.
+Load the dataset and separate it into feature matrix (X) and target vector (y).
 
 ### Step2
 <br>
+Split the dataset into training data and testing data using train_test_split() to evaluate the model performance.
 
 ### Step3
 <br>
+Create a Linear Regression model, train it using the training dataset, and obtain the regression coefficients.
 
 ### Step4
 <br>
+Test the model using the test dataset, calculate the variance score (R² value).
 
 ### Step5
 <br>
+Plot the residual errors for training and testing data using a scatter plot and display the graph to analyze model performance.
 
 ## Program:
-```
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import datasets,linear_model,metrics
+boston=datasets.load_diabetes(return_X_y=False)
 
+#defining feature matrix(X) and response vector (y)
+x=boston.data
+y=boston.target
+#splitting x and y into training and testing sets
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.4,random_state=1)
 
+#create linear regression object
+reg=linear_model.LinearRegression()
 
+#train the model using the training sets
+reg.fit(x_train,y_train)
+
+#regression coefficients
+print("Coefficients",reg.coef_)
+
+#variance score: 1means perfect prediction
+print("Variance score: {}".format(reg.score(x_test,y_test)))
+
+#plot for residual error
+#setting plot style
+plt.style.use("fivethirtyeight")
+
+#plotting residual errors in training data
+plt.scatter(reg.predict(x_train),reg.predict(x_train)-y_train,color='green',s=10,label="Train data")
+
+#plotting residual errors in test data
+plt.scatter(reg.predict(x_test),reg.predict(x_test)-y_test,color='blue',s=10,label="Test data")
+
+#plotting line for zero residual error
+plt.hlines(y=0,xmin=0,xmax=50,linewidth=2)
+
+#plotting legend
+plt.legend(loc='upper right')
+
+#plot title
+plt.title('Residual errors')
+
+##method call for showing the plot
+plt.show()
 
 
 
 ```
 ## Output:
 
-### Insert your output
 
-<br>
+![WhatsApp Image 2025-12-26 at 6 20 30 PM](https://github.com/user-attachments/assets/227ebb53-8396-495b-bdfd-e32d57baaa97)
+
 
 ## Result
 Thus the multivariate linear regression is implemented and predicted the output using python program.
